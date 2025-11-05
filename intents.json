@@ -1,0 +1,42 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "Good morning", "Good evening"],
+      "responses": ["Hello! How can I assist you with your health today?"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": ["Take care! Stay healthy and hydrated."]
+    },
+    {
+      "tag": "flu",
+      "patterns": ["I have a fever", "I'm coughing", "I have flu symptoms", "I feel cold and weak"],
+      "responses": [
+        "It seems like you might have flu symptoms. Rest well, stay hydrated, and consider consulting a doctor if it persists."
+      ]
+    },
+    {
+      "tag": "headache",
+      "patterns": ["My head hurts", "I have a headache", "Pain in my head"],
+      "responses": [
+        "Headaches can be caused by stress, dehydration, or lack of sleep. Try drinking water and resting."
+      ]
+    },
+    {
+      "tag": "diet",
+      "patterns": ["What should I eat for good health?", "Healthy food suggestions", "Give me a healthy diet"],
+      "responses": [
+        "A balanced diet with fruits, vegetables, whole grains, and proteins helps maintain good health."
+      ]
+    },
+    {
+      "tag": "covid",
+      "patterns": ["What are COVID-19 symptoms?", "How do I know if I have COVID?", "Tell me about coronavirus"],
+      "responses": [
+        "Common symptoms include fever, cough, tiredness, and loss of taste or smell. Seek medical advice if symptoms worsen."
+      ]
+    }
+  ]
+}
