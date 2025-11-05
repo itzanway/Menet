@@ -5,40 +5,40 @@ This chatbot provides general health-related guidance, symptom-based suggestions
 
 ---
 
+## 📸 Project Overview
+
+![Medical Chatbot Screenshot](Screenshot%202025-11-05%20184751.png)
+> 💡 *Sample terminal interface of the Medical Health Chatbot.*
+
+---
+
 ## 📋 Features
 
-- 💬 Interactive chatbot built using Python
-- 🧠 Rule-based and keyword-driven health conversation logic
-- ⚕️ Provides general advice for common symptoms
-- 🚑 Emergency alert responses for severe conditions
-- 🩺 Easily extendable knowledge base for new diseases or symptoms
-- 🖥️ Simple command-line interface for local testing
+- 💬 Interactive chatbot built using Python  
+- 🧠 Rule-based and keyword-driven health conversation logic  
+- ⚕️ Provides general advice for common symptoms  
+- 🚑 Emergency alert responses for severe conditions  
+- 🩺 Easily extendable knowledge base for new diseases or symptoms  
+- 🖥️ Simple command-line interface for local testing  
 
 ---
 
 ## 🧠 How It Works
 
 1. The chatbot uses a **pattern-matching and keyword-based approach** to understand user input.  
-2. It compares user symptoms with predefined health conditions.
-3. Based on matching confidence, it provides relevant medical advice or emergency warnings.
-4. Responses are stored and managed in a **JSON knowledge base file** (`intents.json`).
+2. It compares user symptoms with predefined health conditions stored in a JSON file.  
+3. Based on the similarity score, it provides relevant medical advice or emergency instructions.  
+4. All responses are dynamically selected from `intents.json`.
 
 ---
 
-## 🏗️ Tech Stack
+## 🧩 Workflow Diagram
 
-| Component | Description |
-|------------|-------------|
-| **Language** | Python 3 |
-| **Libraries** | NLTK (for tokenization), NumPy |
-| **Interface** | Command-line (can be extended to GUI/web) |
-| **Storage** | JSON file for intents/responses |
-
----
-
-## ⚙️ Installation & Setup
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/itzanway/Menet.git
-cd medical-health-chatbot
+```mermaid
+flowchart TD
+    A([🧍 User Input]) --> B([🧹 Tokenize & Clean Text])
+    B --> C([🔍 Keyword Matching from intents.json])
+    C --> D([🧠 Identify Possible Condition])
+    D --> E([💬 Select Response])
+    E --> F([⚕️ Display Health Advice])
+    D -->|❌ No Match| G([🤖 Default / Fallback Response])
