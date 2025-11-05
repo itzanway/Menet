@@ -74,4 +74,4 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 model.fit(train_x, train_y, epochs=200, batch_size=5, verbose=1)
 model.save('chatbot_model.h5')
 
-print("✅ Model trained and saved successfully!")
+print("Model trained and saved successfully!")

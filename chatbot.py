@@ -5,10 +5,9 @@ import numpy as np
 import nltk
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
+import streamlit as st
 
 lemmatizer = WordNetLemmatizer()
-
-# Load files
 model = load_model('chatbot_model.h5')
 intents = json.loads(open('intents.json').read())
 words = pickle.load(open('words.pkl', 'rb'))
@@ -45,12 +44,68 @@ def get_response(intents_list, intents_json):
             return random.choice(i['responses'])
     return "Sorry, I don't have enough information for that."
 
-print("🤖 Medical Chatbot is online! (type 'quit' to exit)")
-while True:
-    message = input("You: ")
-    if message.lower() == "quit":
-        print("Bot: Take care! Stay healthy 💚")
-        break
-    ints = predict_class(message)
-    res = get_response(ints, intents)
-    print(f"Bot: {res}")
+# Streamlit UI Setup
+st.set_page_config(page_title="💬 Medical Health Chatbot", page_icon="💊", layout="wide")
+
+st.markdown("""
+    <style>
+    body {
+        background-color: #f7f7f8;
+    }
+    .chat-container {
+        max-width: 750px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .message {
+        padding: 12px 18px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        width: fit-content;
+        max-width: 80%;
+        line-height: 1.5;
+        font-size: 16px;
+        word-wrap: break-word;
+    }
+    .user {
+        background-color: #0078FF;
+        color: white;
+        margin-left: auto;
+        text-align: left;
+    }
+    .bot {
+        background-color: #E5E5EA;
+        color: black;
+        margin-right: auto;
+        text-align: left;
+    }
+    input {
+        font-size: 16px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+st.title("💬 Medical Health Chatbot")
+st.caption("💡 Ask health-related questions — powered by AI (not a substitute for professional medical advice).")
+
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+for chat in st.session_state.chat_history:
+    role_class = "user" if chat["role"] == "user" else "bot"
+    st.markdown(f"<div class='message {role_class}'>{chat['message']}</div>", unsafe_allow_html=True)
+
+user_input = st.text_input("Type your message here...", placeholder="e.g., I have a fever and headache.")
+
+if st.button("Send"):
+    if user_input.strip():
+        st.session_state.chat_history.append({"role": "user", "message": user_input})
+        ints = predict_class(user_input)
+        res = get_response(ints, intents)
+        st.session_state.chat_history.append({"role": "bot", "message": res})
+        st.rerun()
+    else:
+        st.warning("Please enter a message before sending.")
+
+st.markdown("</div>", unsafe_allow_html=True)
